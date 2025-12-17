@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Player from "./pages/Player/Player";
+import Search from "./pages/Search/Search";
+import Browse from "./pages/Browse/Browse";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth/cordova";
 import { auth } from "./firebase";
@@ -24,7 +26,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/browse/:type" element={<Browse />} />
         <Route path="/player/:id" element={<Player />} />
+        <Route path="/player/:type/:id" element={<Player />} />
       </Routes>
     </div>
   );
