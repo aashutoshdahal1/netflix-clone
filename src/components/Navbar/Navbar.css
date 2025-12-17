@@ -15,6 +15,9 @@
   );
   z-index: 1001;
 }
+.logo{
+  width: 2rem;
+}
 .navbar-left {
   display: flex;
   align-items: center;

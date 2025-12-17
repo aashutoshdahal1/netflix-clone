@@ -15,20 +15,16 @@ const Footer = () => {
         <img src={youtube_icon} alt="youtube" />
       </div>
       <ul>
-        <li>Audio Description</li>
-        <li>Help Centre</li>
-        <li>Gift Cards</li>
-        <li>Media Centre</li>
-        <li>Investor Relations</li>
-        <li>Jobs</li>
-        <li>Terms of Use</li>
-        <li>Privacy</li>
-        <li>Legal Notices</li>
-        <li>Cookie Preferences</li>
-        <li>Corporate Information</li>
-        <li>Contact Us</li>
+        <li>
+          <a
+            href="mailto:fmovieshelp@gmail.com"
+            title="Contact us"
+            style={{ cursor: "pointer", color: "inherit", textDecoration: "none" }}
+          >
+            Contact Us
+          </a>
+        </li>
       </ul>
-      <p className="copyright-text">&copy;Aashutosh Dahal</p>
     </div>
   );
 };
