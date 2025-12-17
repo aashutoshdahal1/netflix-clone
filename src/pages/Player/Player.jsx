@@ -28,7 +28,7 @@ const Player = () => {
       .then((res) => res.json())
       .then((res) => setApiData(res.results[0]))
       .catch((err) => console.error(err));
-  }, []);
+  }, [id]);
   return (
     <div className="player">
       <img
@@ -41,7 +41,7 @@ const Player = () => {
       <iframe
         width="90%"
         height="90%"
-        src={`https://www.youtube.com/embed/${apiData.key}`}
+        src={`https://moviesapi.club/movie/${id}`}
         title="trailer"
         frameBorder="0"
         allowFullScreen
