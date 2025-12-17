@@ -20,12 +20,66 @@
 .player img:hover {
   transform: scale(1.1);
 }
+
+.fullscreen-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+
+.fullscreen-btn:hover {
+  background: rgba(229, 9, 20, 0.9);
+  border-color: #e50914;
+  transform: scale(1.1);
+}
+
+.fullscreen-btn svg {
+  pointer-events: none;
+}
+
 .player iframe {
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+}
+
+/* Fullscreen support */
+.player iframe:fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0;
+}
+
+.player iframe:-webkit-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0;
+}
+
+.player iframe:-moz-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0;
+}
+
+.player iframe:-ms-fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0;
 }
 .player-info {
   display: flex;
