@@ -41,10 +41,12 @@ const Player = () => {
       <iframe
         width="90%"
         height="90%"
-        src={`https://moviesapi.club/movie/${id}`}
+        src={`https://vidsrc.xyz/embed/movie/${id}`}
         title="trailer"
         frameBorder="0"
         allowFullScreen
+        allow="autoplay; fullscreen"
+        referrerPolicy="origin"
       ></iframe>
       <div className="player-info">
         <p>{apiData.published_at.slice(0, 10)}</p>
@@ -52,6 +54,14 @@ const Player = () => {
         <p>{apiData.typeof}</p>
       </div>
     </div>
+    
+      /*
+      doesn't work:
+vidsrc.me: https://vidsrc.me/embed/movie?tmdb=${id}
+2embed.cc: https://www.2embed.cc/embed/${id}
+embedsoap: https://www.embedsoap.com/embed/movie/?id=${id}
+      */
+    
   );
 };
 
