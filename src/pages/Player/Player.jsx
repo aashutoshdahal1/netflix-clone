@@ -93,7 +93,28 @@ const Player = () => {
         }}
       />
 
-      {mediaType === "tv" && tvDetails && (
+
+
+      <iframe
+        key={`${mediaType}-${id}-${selectedSeason}-${selectedEpisode}`}
+        width="90%"
+        height="90%"
+        src={getVideoUrl()}
+        title={mediaType === "tv" ? "episode" : "movie"}
+        frameBorder="0"
+        allowFullScreen
+        allow="autoplay; fullscreen"
+        referrerPolicy="origin"
+      ></iframe>
+
+      {mediaType === "movie" && (
+        <div className="player-info">
+          <p>{apiData?.published_at?.slice(0, 10) || ""}</p>
+          <p>{apiData?.name || ""}</p>
+          <p>{apiData?.typeof || ""}</p>
+        </div>
+      )}
+            {mediaType === "tv" && tvDetails && (
         <div className="episode-selector">
           <div className="tv-title">
             <h2>{tvDetails.name}</h2>
@@ -137,27 +158,8 @@ const Player = () => {
           </div>
         </div>
       )}
-
-      <iframe
-        key={`${mediaType}-${id}-${selectedSeason}-${selectedEpisode}`}
-        width="90%"
-        height="90%"
-        src={getVideoUrl()}
-        title={mediaType === "tv" ? "episode" : "movie"}
-        frameBorder="0"
-        allowFullScreen
-        allow="autoplay; fullscreen"
-        referrerPolicy="origin"
-      ></iframe>
-
-      {mediaType === "movie" && (
-        <div className="player-info">
-          <p>{apiData?.published_at?.slice(0, 10) || ""}</p>
-          <p>{apiData?.name || ""}</p>
-          <p>{apiData?.typeof || ""}</p>
-        </div>
-      )}
     </div>
+    
   );
 };
 
