@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Browse.css";
 import Navbar from "../../components/Navbar/Navbar";
+import SEO from "../../components/SEO/SEO";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
@@ -75,6 +76,12 @@ const Browse = () => {
 
   return (
     <div className="browse-page">
+      <SEO 
+        title={`${getTitle()} - Watch Online Free | Watchio | fmovies.in.net`}
+        description={`Browse and watch ${getTitle().toLowerCase()} online for free in HD quality. Stream unlimited content on Watchio.`}
+        keywords={`${type === 'movies' ? 'movies' : 'TV shows'}, ${category}, watch online, free streaming, HD quality`}
+        url={`https://fmovies.in.net/browse/${type}?category=${category}`}
+      />
       <Navbar />
       <div className="browse-container">
         <h1 className="browse-title">{getTitle()}</h1>

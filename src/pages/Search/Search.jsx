@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Search.css";
 import Navbar from "../../components/Navbar/Navbar";
+import SEO from "../../components/SEO/SEO";
 import { Link } from "react-router-dom";
 
 const Search = () => {
@@ -60,6 +61,12 @@ const Search = () => {
 
   return (
     <div className="search-page">
+      <SEO 
+        title="Search Movies & TV Shows - Watchio | fmovies.in.net"
+        description="Search and discover thousands of movies and TV shows. Find your favorite content to watch online for free in HD quality."
+        keywords="search movies, find TV shows, movie search, watch movies online, free streaming"
+        url="https://fmovies.in.net/search"
+      />
       <Navbar />
       <div className="search-container">
         <form onSubmit={handleSearch} className="search-form">

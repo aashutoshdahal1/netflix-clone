@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Player.css";
 import back_arrow_icon from "../../assets/back_arrow_icon.png";
+import SEO from "../../components/SEO/SEO";
 import { useNavigate, useParams } from "react-router";
+
 const Player = () => {
   const { type, id } = useParams();
   const navigate = useNavigate();
@@ -13,12 +15,12 @@ const Player = () => {
     typeof: "",
   });
   const [tvDetails, setTvDetails] = useState(null);
+  const [movieDetails, setMovieDetails] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [selectedEpisode, setSelectedEpisode] = useState(1);
   const [seasonDetails, setSeasonDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const iframeRef = React.useRef(null);
-  const [showOverlay, setShowOverlay] = useState(false);
 
   const options = {
     method: "GET",
@@ -53,7 +55,20 @@ const Player = () => {
           setLoading(false);
         });
     } else {
-      setLoading(false);
+      // Fetch movie details
+      fetch(
+        `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+        options
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          setMovieDetails(res);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
     }
   }, [id, mediaType]);
 
@@ -101,18 +116,27 @@ const Player = () => {
     }
   };
 
-  // Show overlay briefly to block initial ad clicks
-  useEffect(() => {
-    setShowOverlay(true);
-    const timer = setTimeout(() => {
-      setShowOverlay(false);
-    }, 5000); // Show overlay for 5 seconds to block initial ad
-
-    return () => clearTimeout(timer);
-  }, [id, selectedSeason, selectedEpisode]);
+  // Generate SEO data
+  const contentTitle = tvDetails?.name || movieDetails?.title || "Watch";
+  const contentOverview = tvDetails?.overview || movieDetails?.overview || "Stream this content online for free";
+  const contentImage = tvDetails?.backdrop_path || movieDetails?.backdrop_path 
+    ? `https://image.tmdb.org/t/p/original${tvDetails?.backdrop_path || movieDetails?.backdrop_path}`
+    : "https://fmovies.in.net/watchio-logo.png";
+  
+  const seoTitle = mediaType === "tv" 
+    ? `Watch ${contentTitle} S${selectedSeason}E${selectedEpisode} - Watchio | fmovies.in.net`
+    : `Watch ${contentTitle} (${movieDetails?.release_date?.split('-')[0] || ''}) - Watchio | fmovies.in.net`;
 
   return (
     <div className="player">
+      <SEO 
+        title={seoTitle}
+        description={contentOverview}
+        image={contentImage}
+        url={`https://fmovies.in.net/player/${mediaType}/${id}`}
+        type="video.other"
+        keywords={`watch ${contentTitle}, ${contentTitle} online, stream ${contentTitle}, ${mediaType === 'tv' ? 'TV show' : 'movie'} streaming`}
+      />
       <img
         src={back_arrow_icon}
         alt="back"
@@ -172,32 +196,20 @@ const Player = () => {
         </div>
       )}
 
-      <div className="video-container">
-        {showOverlay && (
-          <div className="video-overlay">
-            <div className="overlay-message">
-              <div className="spinner"></div>
-              <p>Loading video...</p>
-              <span>Please wait, preparing player...</span>
-            </div>
-          </div>
-        )}
-        <div className="ad-blocker-layer"></div>
-        <iframe
-          ref={iframeRef}
-          key={`${mediaType}-${id}-${selectedSeason}-${selectedEpisode}`}
-          width="100%"
-          height="100%"
-          src={getVideoUrl()}
-          title={mediaType === "tv" ? "episode" : "movie"}
-          frameBorder="0"
-          allowFullScreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-          referrerPolicy="origin"
-          webkitallowfullscreen="true"
-          mozallowfullscreen="true"
-        ></iframe>
-      </div>
+      <iframe
+        ref={iframeRef}
+        key={`${mediaType}-${id}-${selectedSeason}-${selectedEpisode}`}
+        width="90%"
+        height="90%"
+        src={getVideoUrl()}
+        title={mediaType === "tv" ? "episode" : "movie"}
+        frameBorder="0"
+        allowFullScreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        referrerPolicy="origin"
+        webkitallowfullscreen="true"
+        mozallowfullscreen="true"
+      ></iframe>
 
       {mediaType === "movie" && (
         <div className="player-info">
