@@ -15,8 +15,7 @@ const Player = () => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MjZlNThjNWZiZjIyNTQ5MjQxNGQ5OTg4ZjkxYTdiMSIsIm5iZiI6MTc0MDgxNTE0Ni4zMzksInN1YiI6IjY3YzJiYjJhNzk2NTZkZGY1YTZkZDYxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JOjF_YxAaFanTxl0sewySnJ-c23x5twK9vX2YCM4XpI",
+      Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
 
@@ -29,6 +28,13 @@ const Player = () => {
       .then((res) => setApiData(res.results[0]))
       .catch((err) => console.error(err));
   }, [id]);
+
+  // Decode the video source URL
+  const getVideoUrl = () => {
+    const encoded = import.meta.env.VITE_VIDEO_SOURCE;
+    return atob(encoded) + "/" + id;
+  };
+
   return (
     <div className="player">
       <img
@@ -41,7 +47,7 @@ const Player = () => {
       <iframe
         width="90%"
         height="90%"
-        src={`https://vidsrc.xyz/embed/movie/${id}`}
+        src={getVideoUrl()}
         title="trailer"
         frameBorder="0"
         allowFullScreen
