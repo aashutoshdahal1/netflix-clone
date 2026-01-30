@@ -136,6 +136,7 @@ const Player = () => {
         url={`https://fmovies.in.net/player/${mediaType}/${id}`}
         type="video.other"
         keywords={`watch ${contentTitle}, ${contentTitle} online, stream ${contentTitle}, ${mediaType === 'tv' ? 'TV show' : 'movie'} streaming`}
+        noIndex={true} // Player pages should NOT be indexed
       />
       <img
         src={back_arrow_icon}

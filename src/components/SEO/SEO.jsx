@@ -2,12 +2,13 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 
 const SEO = ({
-  title = "Watchio - Watch Free Movies & TV Shows Online | fmovies.in.net",
-  description = "Watch unlimited movies, TV shows, and series online for free on Watchio. Stream latest Hollywood, Bollywood movies in HD quality. No subscription required.",
-  keywords = "watch movies online, free movies, TV shows, streaming, HD movies, Watchio, fmovies, online cinema, web series, latest movies",
+  title = "Watchio - Watch Movies & TV Shows Online | fmovies.in.net",
+  description = "Discover movies and TV shows on Watchio. Read reviews, explore cast information, and find similar content recommendations.",
+  keywords = "movies online, TV shows, entertainment, movie reviews, cast information, Watchio, fmovies",
   image = "https://fmovies.in.net/watchio-logo.png",
   url = "https://fmovies.in.net",
   type = "website",
+  noIndex = false, // Flag to control indexing
 }) => {
   return (
     <Helmet>
@@ -16,6 +17,13 @@ const SEO = ({
       <meta name="title" content={title} />
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
+      
+      {/* Robots Meta - Control Indexing */}
+      {noIndex ? (
+        <meta name="robots" content="noindex,nofollow" />
+      ) : (
+        <meta name="robots" content="index,follow" />
+      )}
       
       {/* Canonical URL */}
       <link rel="canonical" href={url} />
