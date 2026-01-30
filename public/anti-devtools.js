@@ -2,6 +2,16 @@
 // Detects when browser DevTools/console is opened and blocks network requests
 
 (function() {
+  // Skip protection in local development
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.includes('local');
+  
+  if (isLocal) {
+    console.log('%c🔓 Anti-DevTools: Disabled in local development', 'color: green; font-size: 12px;');
+    return;
+  }
+
   let devtoolsOpen = false;
   const threshold = 160;
   
